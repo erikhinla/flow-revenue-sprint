@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brand Intelligence Audit - Transform By 10X</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #000000;
+            color: #ffffff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            margin-top: 20px;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, #00FFFF, #8B00FF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+        }
+
+        .header p {
+            color: #999999;
+            font-size: 14px;
+            font-weight: 400;
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            margin-bottom: 30px;
+        }
+
+        .progress-bar {
+            height: 3px;
+            background: #111111;
+            border-radius: 2px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00FFFF, #8B00FF);
+            transition: width 0.3s ease;
+        }
+
+        .progress-text {
+            font-size: 12px;
+            color: #666666;
+            text-align: right;
+        }
+
+        /* Content Sections */
+        .section {
+            display: none;
+            animation: fadeIn 0.4s ease-in;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Question Section */
+        .question-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .question-header {
+            margin-bottom: 30px;
+        }
+
+        .question-number {
+            font-size: 12px;
+            color: #00FFFF;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .question-text {
+            font-size: 20px;
+            font-weight: 600;
+            color: #ffffff;
+            line-height: 1.4;
+        }
+
+        /* Options */
+        .options {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+
+        .option {
+            padding: 16px;
+            border: 1px solid #222222;
+            border-radius: 6px;
+            background: #050505;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .option:hover {
+            border-color: #00FFFF;
+            background: #0a0a0a;
+        }
+
+        .option input[type="radio"] {
+            margin-right: 12px;
+            cursor: pointer;
+            accent-color: #00FFFF;
+        }
+
+        .option label {
+            cursor: pointer;
+            display: flex;
+            align-items: flex-start;
+            width: 100%;
+        }
+
+        .option input[type="radio"]:checked + .option-text {
+            color: #00FFFF;
+        }
+
+        .option.selected {
+            border-color: #8B00FF;
+            background: #1a0033;
+        }
+
+        .option-text {
+            flex: 1;
+            transition: color 0.3s ease;
+        }
+
+        /* Text Input */
+        .text-input-group {
+            margin-bottom: 30px;
+        }
+
+        .text-input-group textarea {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #222222;
+            border-radius: 6px;
+            background: #050505;
+            color: #ffffff;
+            font-family: inherit;
+            font-size: 14px;
+            resize: vertical;
+            min-height: 100px;
+            transition: border-color 0.3s ease;
+        }
+
+        .text-input-group textarea:focus {
+            outline: none;
+            border-color: #00FFFF;
+            background: #0a0a0a;
+        }
+
+        /* Number Input */
+        .number-input-group {
+            margin-bottom: 30px;
+        }
+
+        .number-input-group input[type="text"] {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #222222;
+            border-radius: 6px;
+            background: #050505;
+            color: #ffffff;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+
+        .number-input-group input[type="text"]:focus {
+            outline: none;
+            border-color: #00FFFF;
+            background: #0a0a0a;
+        }
+
+        /* Email Section */
+        .email-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .email-form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .email-form input[type="email"] {
+            padding: 14px;
+            border: 1px solid #222222;
+            border-radius: 6px;
+            background: #050505;
+            color: #ffffff;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+
+        .email-form input[type="email"]:focus {
+            outline: none;
+            border-color: #00FFFF;
+            background: #0a0a0a;
+        }
+
+        .email-form input[type="email"]::placeholder {
+            color: #555555;
+        }
+
+        /* Results Section */
+        .results-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .score-display {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .score-number {
+            font-size: 72px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #00FFFF, #8B00FF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 16px;
+        }
+
+        .score-interpretation {
+            font-size: 16px;
+            color: #cccccc;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .score-breakdown {
+            background: #0a0a0a;
+            border: 1px solid #222222;
+            border-radius: 6px;
+            padding: 20px;
+            margin-bottom: 30px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .breakdown-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .breakdown-label {
+            font-size: 12px;
+            color: #00FFFF;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .breakdown-value {
+            font-size: 24px;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .tier-recommendation {
+            background: #1a0033;
+            border: 1px solid #8B00FF;
+            border-radius: 6px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .tier-label {
+            font-size: 12px;
+            color: #8B00FF;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .tier-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 12px;
+        }
+
+        .tier-description {
+            font-size: 14px;
+            color: #cccccc;
+            line-height: 1.6;
+        }
+
+        /* Buttons */
+        .button-group {
+            display: flex;
+            gap: 12px;
+            margin-top: auto;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 14px 24px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #00FFFF, #8B00FF);
+            color: #000000;
+            flex: 1;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 255, 255, 0.3);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #00FFFF;
+            border: 1px solid #00FFFF;
+            flex: 1;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(0, 255, 255, 0.1);
+        }
+
+        .btn-next {
+            background: linear-gradient(135deg, #00FFFF, #8B00FF);
+            color: #000000;
+            flex: 1;
+        }
+
+        .btn-next:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 255, 255, 0.3);
+        }
+
+        .btn-next:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Validation */
+        .error-message {
+            color: #ff4444;
+            font-size: 12px;
+            margin-top: 8px;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 640px) {
+            .container {
+                padding: 16px;
+                min-height: 100vh;
+            }
+
+            .header {
+                margin-bottom: 30px;
+                margin-top: 16px;
+            }
+
+            .header h1 {
+                font-size: 24px;
+            }
+
+            .question-text {
+                font-size: 18px;
+            }
+
+            .score-number {
+                font-size: 56px;
+            }
+
+            .score-breakdown {
+                grid-template-columns: 1fr;
+            }
+
+            .option {
+                padding: 14px;
+                font-size: 13px;
+            }
+        }
+
+        /* Accessibility */
+        button:focus {
+            outline: 2px solid #00FFFF;
+            outline-offset: 2px;
+        }
+
+        input:focus {
+            outline: none;
+        }
+
+        /* Animation for score reveal */
+        @keyframes slideInScore {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .score-display {
+            animation: slideInScore 0.6s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>Brand Intelligence Audit</h1>
+            <p>Discover your flow readiness in 5 minutes</p>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-text"><span id="currentQuestion">1</span>/15</div>
+        </div>
+
+        <!-- Questions Section -->
+        <div id="section-questions" class="section active">
+            <div class="question-section" id="questionContainer">
+                <!-- Questions will be injected here -->
+            </div>
+
+            <div class="button-group">
+                <button class="btn-secondary" id="btnPrev" onclick="previousQuestion()" style="display: none;">Previous</button>
+                <button class="btn-next" id="btnNext" onclick="nextQuestion()">Next</button>
+            </div>
+        </div>
+
+        <!-- Email Section -->
+        <div id="section-email" class="section">
+            <div class="email-section">
+                <div class="question-header">
+                    <div class="question-number">Almost There</div>
+                    <div class="question-text">One more thing—where should we send your results?</div>
+                </div>
+
+                <form class="email-form" onsubmit="submitEmail(event)">
+                    <input 
+                        type="email" 
+                        id="emailInput" 
+                        placeholder="Your email address" 
+                        required
+                    >
+                    <div class="error-message" id="emailError"></div>
+                    <button type="submit" class="btn-primary">View Results</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Results Section -->
+        <div id="section-results" class="section">
+            <div class="results-section">
+                <div class="score-display">
+                    <div class="score-number" id="finalScore">0</div>
+                    <div class="score-interpretation" id="scoreInterpretation"></div>
+                </div>
+
+                <div class="score-breakdown">
+                    <div class="breakdown-item">
+                        <div class="breakdown-label">Strategy Score</div>
+                        <div class="breakdown-value" id="strategyScore">0</div>
+                    </div>
+                    <div class="breakdown-item">
+                        <div class="breakdown-label">Operations Score</div>
+                        <div class="breakdown-value" id="operationsScore">0</div>
+                    </div>
+                </div>
+
+                <div class="tier-recommendation">
+                    <div class="tier-label" id="tierLabel">Your Path</div>
+                    <div class="tier-title" id="tierTitle"></div>
+                    <div class="tier-description" id="tierDescription"></div>
+                </div>
+
+                <div class="button-group">
+                    <button class="btn-primary" onclick="scheduleSession()">Book Your F.L.O.W. Strategy Session</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Question Database
+        const questions = [
+            {
+                id: 1,
+                type: 'choice',
+                number: 1,
+                text: 'Where is your organization right now?',
+                maxPoints: 10,
+                section: 'strategy',
+                options: [
+                    { text: 'Chaos. We\'re drowning in tools and scattered files.', points: 2 },
+                    { text: 'Reactive. We manage, but everything takes longer than it should.', points: 5 },
+                    { text: 'Functional. We have systems, but they\'re not connected.', points: 7 },
+                    { text: 'Growing but organized. We need to scale what works.', points: 10 }
+                ]
+            },
+            {
+                id: 2,
+                type: 'choice',
+                number: 2,
+                text: 'What does winning look like for you?',
+                maxPoints: 10,
+                section: 'strategy',
+                options: [
+                    { text: 'Find anything in seconds, not hours or days.', points: 3 },
+                    { text: 'Less rebuilding, more creating. Get faster time-to-market.', points: 7 },
+                    { text: 'Your team knows what everyone else knows. Zero knowledge loss.', points: 9 },
+                    { text: 'Automate the repetitive stuff and focus on strategy.', points: 10 }
+                ]
+            },
+            {
+                id: 3,
+                type: 'choice',
+                number: 3,
+                text: 'What have you tried that didn\'t work?',
+                maxPoints: 10,
+                section: 'strategy',
+                options: [
+                    { text: 'Nothing yet. This is our first real attempt.', points: 4 },
+                    { text: 'We bought tools, but they didn\'t stick. People still work their own way.', points: 6 },
+                    { text: 'We tried organizing. It helped for a month, then fell apart.', points: 8 },
+                    { text: 'We\'ve tried everything. We just need the right architecture.', points: 10 }
+                ]
+            },
+            {
+                id: 4,
+                type: 'choice',
+                number: 4,
+                text: 'What would a real solution do?',
+                maxPoints: 10,
+                section: 'strategy',
+                options: [
+                    { text: 'Make our tools work together instead of fighting each other.', points: 5 },
+                    { text: 'Keep growing without duplicating our work.', points: 7 },
+                    { text: 'Make knowledge discoverable and reusable across teams.', points: 9 },
+                    { text: 'Transform how we work—from reactive to strategic.', points: 10 }
+                ]
+            },
+            {
+                id: 5,
+                type: 'choice',
+                number: 5,
+                text: 'How long does it take to find a campaign asset from 6 months ago?',
+                maxPoints: 10,
+                section: 'operations',
+                options: [
+                    { text: 'We can\'t. We usually rebuild it.', points: 2 },
+                    { text: 'A few hours of digging. Someone might remember where it is.', points: 4 },
+                    { text: 'About 20-30 minutes if we remember which folder.', points: 7 },
+                    { text: 'Minutes. We know exactly where everything is.', points: 10 }
+                ]
+            },
+            {
+                id: 6,
+                type: 'choice',
+                number: 6,
+                text: 'How much institutional knowledge walks out the door when someone leaves?',
+                maxPoints: 10,
+                section: 'operations',
+                options: [
+                    { text: 'Everything. We lose processes, templates, best practices.', points: 2 },
+                    { text: 'A lot. Tribal knowledge is our biggest risk.', points: 5 },
+                    { text: 'Some. We document the big stuff, but details slip through.', points: 7 },
+                    { text: 'Minimal. It\'s all documented and team-accessible.', points: 10 }
+                ]
+            },
+            {
+                id: 7,
+                type: 'choice',
+                number: 7,
+                text: 'How much are you building from scratch each time?',
+                maxPoints: 10,
+                section: 'operations',
+                options: [
+                    { text: 'Almost everything. We rarely reuse work.', points: 2 },
+                    { text: 'Maybe 40-50%. We have some templates but they\'re hard to find.', points: 5 },
+                    { text: 'About 20-30%. We reuse more than we build new.', points: 7 },
+                    { text: 'Minimal. We build modular, scalable components.', points: 10 }
+                ]
+            },
+            {
+                id: 8,
+                type: 'choice',
+                number: 8,
+                text: 'What happens to the insights from your successful projects?',
+                maxPoints: 10,
+                section: 'operations',
+                options: [
+                    { text: 'They stay in people\'s heads or disappear.', points: 2 },
+                    { text: 'We try to document them, but it\'s inconsistent.', points: 5 },
+                    { text: 'We capture them, but it\'s hard for others to access them.', points: 7 },
+                    { text: 'They\'re systematized. We learn and improve every project.', points: 10 }
+                ]
+            },
+            {
+                id: 9,
+                type: 'choice',
+                number: 9,
+                text: 'How many of your tools don\'t talk to each other?',
+                maxPoints: 10,
+                section: 'operations',
+                options: [
+                    { text: 'All of them basically. We do a lot of copy-paste.', points: 2 },
+                    { text: 'Most of them. We\'re constantly pulling data from different places.', points: 5 },
+                    { text: 'Maybe half. Some integrations exist, but they\'re basic.', points: 7 },
+                    { text: 'They\'re mostly connected. Data flows smoothly.', points: 10 }
+                ]
+            },
+            {
+                id: 10,
+                type: 'choice',
+                number: 10,
+                text: 'How many hours per week are wasted recreating work you\'ve already done?',
+                maxPoints: 10,
+                section: 'operations',
+                options: [
+                    { text: '10+ hours. It\'s basically our biggest time suck.', points: 2 },
+                    { text: '5-10 hours. Significant but we live with it.', points: 5 },
+                    { text: '2-5 hours. Annoying but manageable.', points: 7 },
+                    { text: 'Less than 2 hours. We\'ve minimized this.', points: 10 }
+                ]
+            },
+            {
+                id: 11,
+                type: 'choice',
+                number: 11,
+                text: 'What\'s your team size?',
+                maxPoints: 100,
+                section: 'qualification',
+                options: [
+                    { text: '5-15 people', points: 20 },
+                    { text: '15-30 people', points: 50 },
+                    { text: '30-75 people', points: 75 },
+                    { text: '75+ people', points: 100 }
+                ]
+            },
+            {
+                id: 12,
+                type: 'choice',
+                number: 12,
+                text: 'What\'s your annual revenue range?',
+                maxPoints: 100,
+                section: 'qualification',
+                options: [
+                    { text: '$1-5 million', points: 10 },
+                    { text: '$5-25 million', points: 40 },
+                    { text: '$25-100 million', points: 75 },
+                    { text: '$100M+', points: 100 }
+                ]
+            },
+            {
+                id: 13,
+                type: 'choice',
+                number: 13,
+                text: 'How much are you willing to invest in fixing this?',
+                maxPoints: 100,
+                section: 'qualification',
+                options: [
+                    { text: 'We need to prove value first. Start small.', points: 5 },
+                    { text: '$50-100K annually', points: 35 },
+                    { text: '$100-250K annually', points: 70 },
+                    { text: 'Whatever it takes. This is a priority.', points: 100 }
+                ]
+            },
+            {
+                id: 14,
+                type: 'choice',
+                number: 14,
+                text: 'What\'s your timeline for solving this?',
+                maxPoints: 100,
+                section: 'qualification',
+                options: [
+                    { text: 'Sometime next year maybe', points: 5 },
+                    { text: 'Next quarter would be ideal', points: 40 },
+                    { text: 'Next 60 days', points: 80 },
+                    { text: 'Urgent. We need this now.', points: 100 }
+                ]
+            },
+            {
+                id: 15,
+                type: 'text',
+                number: 15,
+                text: 'What\'s the biggest pain point we haven\'t covered?',
+                maxPoints: 0,
+                section: 'openended'
+            }
+        ];
+
+        // State Management
+        const state = {
+            currentQuestion: 0,
+            responses: {},
+            email: '',
+            score: 0,
+            strategyScore: 0,
+            operationsScore: 0,
+            qualificationScore: 0,
+            tier: '',
+            visitedQuestions: new Set()
+        };
+
+        // Load state from localStorage
+        function loadState() {
+            const saved = localStorage.getItem('auditState');
+            if (saved) {
+                Object.assign(state, JSON.parse(saved));
+                state.visitedQuestions = new Set(state.visitedQuestions);
+            }
+        }
+
+        // Save state to localStorage
+        function saveState() {
+            const toSave = { ...state, visitedQuestions: Array.from(state.visitedQuestions) };
+            localStorage.setItem('auditState', JSON.stringify(toSave));
+        }
+
+        // Initialize
+        function init() {
+            loadState();
+            renderQuestion();
+            updateProgress();
+        }
+
+        // Render Current Question
+        function renderQuestion() {
+            const question = questions[state.currentQuestion];
+            const container = document.getElementById('questionContainer');
+            
+            if (question.type === 'choice') {
+                const options = question.options.map((opt, idx) => `
+                    <div class="option ${state.responses[question.id] === idx ? 'selected' : ''}">
+                        <label>
+                            <input 
+                                type="radio" 
+                                name="question-${question.id}" 
+                                value="${idx}"
+                                ${state.responses[question.id] === idx ? 'checked' : ''}
+                                onchange="handleResponse(${question.id}, ${idx})"
+                            >
+                            <span class="option-text">${opt.text}</span>
+                        </label>
+                    </div>
+                `).join('');
+
+                container.innerHTML = `
+                    <div class="question-header">
+                        <div class="question-number">Question ${question.number}</div>
+                        <div class="question-text">${question.text}</div>
+                    </div>
+                    <div class="options">${options}</div>
+                `;
+            } else if (question.type === 'text') {
+                container.innerHTML = `
+                    <div class="question-header">
+                        <div class="question-number">Question ${question.number}</div>
+                        <div class="question-text">${question.text}</div>
+                    </div>
+                    <div class="text-input-group">
+                        <textarea 
+                            id="textResponse"
+                            placeholder="Share your biggest challenge..."
+                            onchange="handleTextResponse(${question.id})"
+                        >${state.responses[question.id] || ''}</textarea>
+                    </div>
+                `;
+            }
+
+            updateProgress();
+            updateButtons();
+        }
+
+        // Handle Response
+        function handleResponse(questionId, optionIdx) {
+            state.responses[questionId] = optionIdx;
+            state.visitedQuestions.add(state.currentQuestion);
+            saveState();
+
+            // Visual feedback
+            const options = document.querySelectorAll('.option');
+            options.forEach((opt, idx) => {
+                opt.classList.toggle('selected', idx === optionIdx);
+            });
+        }
+
+        // Handle Text Response
+        function handleTextResponse(questionId) {
+            const text = document.getElementById('textResponse').value;
+            state.responses[questionId] = text;
+            state.visitedQuestions.add(state.currentQuestion);
+            saveState();
+        }
+
+        // Navigate Questions
+        function nextQuestion() {
+            const question = questions[state.currentQuestion];
+            
+            // Validation
+            if (!(question.id in state.responses)) {
+                showError('Please answer this question to continue');
+                return;
+            }
+
+            if (state.currentQuestion < questions.length - 1) {
+                state.currentQuestion++;
+                saveState();
+                renderQuestion();
+            } else {
+                // Move to email section
+                showSection('section-email');
+            }
+        }
+
+        function previousQuestion() {
+            if (state.currentQuestion > 0) {
+                state.currentQuestion--;
+                saveState();
+                renderQuestion();
+            }
+        }
+
+        // Update Progress Bar
+        function updateProgress() {
+            const progress = ((state.currentQuestion + 1) / questions.length) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+            document.getElementById('currentQuestion').textContent = state.currentQuestion + 1;
+        }
+
+        // Update Buttons
+        function updateButtons() {
+            const btnPrev = document.getElementById('btnPrev');
+            const btnNext = document.getElementById('btnNext');
+            
+            btnPrev.style.display = state.currentQuestion > 0 ? 'block' : 'none';
+            btnNext.textContent = state.currentQuestion === questions.length - 1 ? 'Review Results' : 'Next';
+        }
+
+        // Show Error
+        function showError(message) {
+            const errorEl = document.getElementById('emailError') || createErrorElement();
+            errorEl.textContent = message;
+            errorEl.classList.add('show');
+            setTimeout(() => errorEl.classList.remove('show'), 3000);
+        }
+
+        function createErrorElement() {
+            const el = document.createElement('div');
+            el.className = 'error-message';
+            document.querySelector('.email-form').appendChild(el);
+            return el;
+        }
+
+        // Submit Email
+        function submitEmail(event) {
+            event.preventDefault();
+            const email = document.getElementById('emailInput').value;
+            
+            if (!email || !email.includes('@')) {
+                showError('Please enter a valid email address');
+                return;
+            }
+
+            state.email = email;
+            saveState();
+            calculateResults();
+            showSection('section-results');
+        }
+
+        // Calculate Results
+        function calculateResults() {
+            // Strategy Score (Q1-4, max 40)
+            state.strategyScore = 0;
+            for (let i = 1; i <= 4; i++) {
+                const responseIdx = state.responses[i];
+                if (responseIdx !== undefined) {
+                    state.strategyScore += questions[i - 1].options[responseIdx].points;
+                }
+            }
+
+            // Operations Score (Q5-10, max 60)
+            state.operationsScore = 0;
+            for (let i = 5; i <= 10; i++) {
+                const responseIdx = state.responses[i];
+                if (responseIdx !== undefined) {
+                    state.operationsScore += questions[i - 1].options[responseIdx].points;
+                }
+            }
+
+            // Total Score (out of 100)
+            state.score = Math.round(state.strategyScore + state.operationsScore);
+
+            // Qualification Score (Q11-14)
+            state.qualificationScore = 0;
+            for (let i = 11; i <= 14; i++) {
+                const responseIdx = state.responses[i];
+                if (responseIdx !== undefined) {
+                    state.qualificationScore += questions[i - 1].options[responseIdx].points;
+                }
+            }
+
+            determineTier();
+            displayResults();
+            saveState();
+        }
+
+        // Determine Tier
+        function determineTier() {
+            if (state.qualificationScore < 60) {
+                state.tier = 'not_qualified';
+            } else if (state.score < 40) {
+                state.tier = 'organize_first';
+            } else if (state.score < 70) {
+                state.tier = 'full_flow';
+            } else {
+                state.tier = 'optimization_focus';
+            }
+        }
+
+        // Display Results
+        function displayResults() {
+            const tierConfig = {
+                not_qualified: {
+                    title: 'Not Ready Yet',
+                    description: 'Your team needs to get organized before jumping into complex workflows. We recommend starting with documentation and basic process mapping first.'
+                },
+                organize_first: {
+                    title: 'Organize First',
+                    description: 'You\'re experiencing the chaos phase. Your next step is building a foundation—clear systems, documented processes, and centralized asset management.'
+                },
+                full_flow: {
+                    title: 'Ready for F.L.O.W.',
+                    description: 'You\'re ready to implement full workflow optimization. We can help you orchestrate your tools, automate repetitive work, and build scalable systems.'
+                },
+                optimization_focus: {
+                    title: 'Advanced Optimization',
+                    description: 'You\'re mature. Let\'s focus on optimization—making your best practices replicable, automating edge cases, and scaling what\'s already working.'
+                }
+            };
+
+            const config = tierConfig[state.tier];
+
+            // Get interpretation text based on score
+            let interpretation = '';
+            if (state.score < 30) {
+                interpretation = 'Your team is struggling with foundational organization. There\'s significant opportunity here.';
+            } else if (state.score < 50) {
+                interpretation = 'You\'re managing, but inefficiently. Real improvements are within reach.';
+            } else if (state.score < 75) {
+                interpretation = 'You\'re functional. Strategic optimization will unlock real competitive advantage.';
+            } else {
+                interpretation = 'You\'re operationally strong. Let\'s focus on scaling and automation.';
+            }
+
+            document.getElementById('finalScore').textContent = state.score;
+            document.getElementById('scoreInterpretation').textContent = interpretation;
+            document.getElementById('strategyScore').textContent = state.strategyScore + '/40';
+            document.getElementById('operationsScore').textContent = state.operationsScore + '/60';
+            document.getElementById('tierTitle').textContent = config.title;
+            document.getElementById('tierDescription').textContent = config.description;
+        }
+
+        // Show Section
+        function showSection(sectionId) {
+            document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
+            document.getElementById(sectionId).classList.add('active');
+            window.scrollTo(0, 0);
+        }
+
+        // Schedule Session
+        function scheduleSession() {
+            // Opens Calendly - update with your actual Calendly URL
+            window.open('https://calendly.com/transformby10x', '_blank');
+        }
+
+        // Start on Load
+        document.addEventListener('DOMContentLoaded', init);
+
+        // Reset Function (for testing)
+        function resetAudit() {
+            if (confirm('Reset the entire audit?')) {
+                localStorage.removeItem('auditState');
+                Object.assign(state, {
+                    currentQuestion: 0,
+                    responses: {},
+                    email: '',
+                    score: 0,
+                    strategyScore: 0,
+                    operationsScore: 0,
+                    qualificationScore: 0,
+                    tier: '',
+                    visitedQuestions: new Set()
+                });
+                showSection('section-questions');
+                renderQuestion();
+            }
+        }
+    </script>
+</body>
+</html>
