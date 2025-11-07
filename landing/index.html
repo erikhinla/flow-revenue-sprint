@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BizBuilders AI - Stop Rebuilding Your Work</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #000000;
+            color: #ffffff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid #1a1a1a;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 16px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-size: 18px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #D2B48C, #8B4513);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-cta {
+            background: linear-gradient(135deg, #D2B48C, #8B4513);
+            color: #000000;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(139, 69, 19, 0.3);
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 60px;
+            padding: 80px 20px;
+            min-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+        }
+
+        .hero-content {
+            max-width: 800px;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-size: 56px;
+            line-height: 1.1;
+            margin-bottom: 16px;
+            font-weight: 700;
+            letter-spacing: -1px;
+        }
+
+        .hero h1 strong {
+            background: linear-gradient(135deg, #D2B48C, #8B4513);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 20px;
+            color: #cccccc;
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+
+        .hero-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 32px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #D2B48C, #8B4513);
+            color: #000000;
+            padding: 16px 32px;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 32px rgba(139, 69, 19, 0.3);
+        }
+
+        .btn-primary:active {
+            transform: translateY(-1px);
+        }
+
+        .hero-trust {
+            font-size: 13px;
+            color: #888888;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .hero-trust strong {
+            color: #D2B48C;
+        }
+
+        /* Problem Section */
+        .problems {
+            padding: 100px 20px;
+            background: #050505;
+            border-top: 1px solid #1a1a1a;
+        }
+
+        .section-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-label {
+            font-size: 12px;
+            color: #D2B48C;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .section-title {
+            font-size: 40px;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 16px;
+        }
+
+        .section-subtitle {
+            font-size: 16px;
+            color: #999999;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .problems-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 24px;
+        }
+
+        .problem-card {
+            background: #0a0a0a;
+            border: 1px solid #1a1a1a;
+            padding: 32px 24px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .problem-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #D2B48C, #8B4513);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        .problem-card:hover {
+            border-color: #8B4513;
+            background: #111111;
+        }
+
+        .problem-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .problem-icon {
+            font-size: 28px;
+            margin-bottom: 16px;
+            opacity: 0.7;
+        }
+
+        .problem-card h3 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        .problem-card p {
+            font-size: 14px;
+            color: #888888;
+            line-height: 1.5;
+        }
+
+        /* Solution Section */
+        .solution {
+            padding: 100px 20px;
+            background: #000000;
+            border-top: 1px solid #1a1a1a;
+        }
+
+        .solution-content {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .three-phase {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+            margin-top: 60px;
+        }
+
+        .phase {
+            background: #0a0a0a;
+            border: 1px solid #1a1a1a;
+            padding: 40px 32px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .phase:hover {
+            border-color: #D2B48C;
+            background: #111111;
+            transform: translateY(-8px);
+        }
+
+        .phase-number {
+            font-size: 48px;
+            font-weight: 700;
+            color: #8B4513;
+            opacity: 0.2;
+            margin-bottom: 8px;
+        }
+
+        .phase-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #D2B48C;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .phase-description {
+            font-size: 14px;
+            color: #999999;
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        .phase-items {
+            font-size: 13px;
+            color: #666666;
+            line-height: 1.8;
+        }
+
+        .phase-items li {
+            margin-bottom: 8px;
+            margin-left: 20px;
+        }
+
+        /* Proof Section */
+        .proof {
+            padding: 100px 20px;
+            background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+            border-top: 1px solid #1a1a1a;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-top: 60px;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 40px 24px;
+            background: #000000;
+            border: 1px solid #1a1a1a;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            border-color: #8B4513;
+            background: #050505;
+        }
+
+        .stat-number {
+            font-size: 48px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #D2B48C, #8B4513);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 12px;
+        }
+
+        .stat-label {
+            font-size: 16px;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 8px;
+        }
+
+        .stat-description {
+            font-size: 13px;
+            color: #777777;
+            line-height: 1.5;
+        }
+
+        /* CTA Section */
+        .final-cta {
+            padding: 100px 20px;
+            background: #000000;
+            border-top: 1px solid #1a1a1a;
+            text-align: center;
+        }
+
+        .final-cta-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .final-cta h2 {
+            font-size: 40px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        .final-cta-button {
+            background: linear-gradient(135deg, #D2B48C, #8B4513);
+            color: #000000;
+            padding: 18px 40px;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            margin: 32px 0;
+        }
+
+        .final-cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 32px rgba(139, 69, 19, 0.3);
+        }
+
+        .final-cta-subtext {
+            font-size: 14px;
+            color: #888888;
+        }
+
+        /* Footer */
+        footer {
+            padding: 40px 20px;
+            text-align: center;
+            border-top: 1px solid #1a1a1a;
+            background: #050505;
+        }
+
+        .footer-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            font-size: 13px;
+            color: #666666;
+        }
+
+        .footer-divider {
+            color: #1a1a1a;
+            margin: 0 8px;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero-subtitle {
+                font-size: 16px;
+            }
+
+            .section-title {
+                font-size: 28px;
+            }
+
+            .three-phase {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .final-cta h2 {
+                font-size: 28px;
+            }
+
+            .nav-cta {
+                padding: 8px 16px;
+                font-size: 11px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            nav {
+                padding: 12px 16px;
+            }
+
+            .hero {
+                padding: 60px 16px;
+                margin-top: 50px;
+            }
+
+            .hero h1 {
+                font-size: 28px;
+            }
+
+            .hero-subtitle {
+                font-size: 14px;
+            }
+
+            .btn-primary {
+                font-size: 12px;
+                padding: 14px 24px;
+            }
+
+            .problems {
+                padding: 60px 16px;
+            }
+
+            .problems-grid {
+                gap: 16px;
+            }
+
+            .problem-card {
+                padding: 24px 16px;
+            }
+
+            .solution {
+                padding: 60px 16px;
+            }
+
+            .section-title {
+                font-size: 22px;
+            }
+
+            .section-subtitle {
+                font-size: 14px;
+            }
+
+            .phase {
+                padding: 24px 16px;
+            }
+
+            .phase-number {
+                font-size: 36px;
+            }
+
+            .proof {
+                padding: 60px 16px;
+            }
+
+            .stat-number {
+                font-size: 36px;
+            }
+
+            .final-cta {
+                padding: 60px 16px;
+            }
+
+            .final-cta h2 {
+                font-size: 22px;
+            }
+        }
+
+        /* Scroll Animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Accessibility */
+        button:focus {
+            outline: 2px solid #D2B48C;
+            outline-offset: 2px;
+        }
+
+        a:focus {
+            outline: 2px solid #D2B48C;
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="nav-logo">BizBuilders AI</div>
+            <button class="nav-cta" onclick="scrollToSection('hero')">Assessment</button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="hero-content">
+            <h1>Stop Rebuilding <strong>What You Already Created</strong></h1>
+            <p class="hero-subtitle">Your agency recreates the same work every week. We fix that.</p>
+            <div class="hero-buttons">
+                <a href="./audit/" class="btn-primary">Take Our Digital Organizing Assessment</a>
+            </div>
+            <p class="hero-trust"><strong>Free</strong> • Under 5 minutes • <strong>Immediate results</strong></p>
+        </div>
+    </section>
+
+    <!-- Problems Section -->
+    <section class="problems">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-label">The Real Problem</span>
+                <h2 class="section-title">Your Tools Don't Work Together</h2>
+                <p class="section-subtitle">And that's costing you millions in lost productivity</p>
+            </div>
+
+            <div class="problems-grid">
+                <div class="problem-card fade-in">
+                    <div class="problem-icon">⏱️</div>
+                    <h3>15+ hours weekly searching for assets</h3>
+                    <p>Your team spends massive time looking for files that exist somewhere in your system. That's not a workflow problem. That's an architecture problem.</p>
+                </div>
+
+                <div class="problem-card fade-in">
+                    <div class="problem-icon">👋</div>
+                    <h3>Knowledge walks out the door</h3>
+                    <p>When someone leaves, their processes, templates, and tribal knowledge leave with them. You're essentially starting from zero every time.</p>
+                </div>
+
+                <div class="problem-card fade-in">
+                    <div class="problem-icon">🔗</div>
+                    <h3>20+ tools that don't talk to each other</h3>
+                    <p>Your martech stack is a disaster. Everything requires manual data entry, copy-paste workflows, and constant juggling between platforms.</p>
+                </div>
+
+                <div class="problem-card fade-in">
+                    <div class="problem-icon">🔄</div>
+                    <h3>You rebuild decks, campaigns, and content constantly</h3>
+                    <p>Remakes that should take 30 minutes take hours. You have no reference system, no asset library, no institutional memory. Just chaos.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section class="solution">
+        <div class="solution-content">
+            <div class="section-header">
+                <span class="section-label">Our Approach</span>
+                <h2 class="section-title">F.L.O.W.</h2>
+                <p class="section-subtitle">Frictionless Learning & Optimization Workflows. We don't organize your files. We make your work remember.</p>
+            </div>
+
+            <div class="three-phase">
+                <div class="phase fade-in">
+                    <div class="phase-number">1</div>
+                    <div class="phase-title">Organize</div>
+                    <p class="phase-description">Map your actual workflows. Extract your brand DNA. Build a single source of truth.</p>
+                    <ul class="phase-items">
+                        <li>Audit your current systems</li>
+                        <li>Document brand guidelines and processes</li>
+                        <li>Create centralized asset architecture</li>
+                    </ul>
+                </div>
+
+                <div class="phase fade-in">
+                    <div class="phase-number">2</div>
+                    <div class="phase-title">Optimize</div>
+                    <p class="phase-description">Connect your tools. Build AI systems trained on your brand. Automate the repetitive work.</p>
+                    <ul class="phase-items">
+                        <li>Integrate disconnected platforms</li>
+                        <li>Train AI on your brand standards</li>
+                        <li>Build automated workflows</li>
+                    </ul>
+                </div>
+
+                <div class="phase fade-in">
+                    <div class="phase-number">3</div>
+                    <div class="phase-title">Mobilize</div>
+                    <p class="phase-description">Scale intelligence across your organization. Make it easy for your team to do it right.</p>
+                    <ul class="phase-items">
+                        <li>Deploy across all teams</li>
+                        <li>Build lasting institutional memory</li>
+                        <li>Create competitive advantage through speed</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Proof Section -->
+    <section class="proof">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-label">What It Means</span>
+                <h2 class="section-title">Real Results</h2>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card fade-in">
+                    <div class="stat-number">10x</div>
+                    <div class="stat-label">Faster Production</div>
+                    <div class="stat-description">Your team stops recreating work and starts creating new work. Speed compounds everything.</div>
+                </div>
+
+                <div class="stat-card fade-in">
+                    <div class="stat-number">60-80%</div>
+                    <div class="stat-label">Cost Reduction</div>
+                    <div class="stat-description">Hours recovered, people more focused, less waste. Turns productivity into margin.</div>
+                </div>
+
+                <div class="stat-card fade-in">
+                    <div class="stat-number">95%</div>
+                    <div class="stat-label">Brand Consistency</div>
+                    <div class="stat-description">AI trained on your standards. No more brand drift. Every asset aligns with your vision.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA Section -->
+    <section class="final-cta">
+        <div class="final-cta-content">
+            <h2>See Where You're Losing Time</h2>
+            <p style="font-size: 16px; color: #999999; margin-bottom: 16px;">Take the Digital Organizing Assessment. 15 questions. Under 5 minutes. You'll know exactly what's broken and what to fix first.</p>
+            <a href="./audit/" class="final-cta-button">Take the Assessment</a>
+            <p class="final-cta-subtext">Takes under 5 minutes. Get your organization score immediately.</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <span>BizBuilders AI</span>
+            <span class="footer-divider">•</span>
+            <span>Workflow architecture for agencies that need to scale</span>
+            <span class="footer-divider">•</span>
+            <span>© 2025 TransformBy10X</span>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll animation for elements
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Observe all fade-in elements
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Smooth scroll function
+        function scrollToSection(id) {
+            const element = document.getElementById(id);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Scroll event for nav background
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.style.background = 'rgba(0, 0, 0, 0.98)';
+            } else {
+                nav.style.background = 'rgba(0, 0, 0, 0.95)';
+            }
+        });
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Pre-load fade-in elements that might be visible on load
+            const fadeElements = document.querySelectorAll('.fade-in');
+            fadeElements.forEach(el => {
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>
